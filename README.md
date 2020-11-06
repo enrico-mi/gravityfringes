@@ -12,6 +12,12 @@ Just execute the main file to use the default webcam of your machine:
 
 To leave the program press the Esc key.
 
+To specify the threshold on the gray scale above which the red shades are applied, use the option `-t` followed by a number between 0 (black, the whole picture is turned to shades of red) and 255 (white, only pure white is turned into pure red):
+
+`python3 gravityfringes.py -t=180`.
+
+The default threshold is 100.
+
 To read from a different webcam, you can specify its channel `n` in your machine with the `-w` option:
 
 `python3 gravityfringes.py -w=n`.

@@ -14,15 +14,17 @@ def main():
     parser.add_argument("-d", "--delay", type=int, default=30, help=" Time delay, defaults to 30 ms")
     parser.add_argument("-w", "--webcam", type=int, default=0, help=" Webcam channel (machine-dependent), defaults to 0")
     parser.add_argument("-v", "--video", type=str, default=None, help=" Path to input video")
+    parser.add_argument("-t", "--threshold", type=np.uint8, default=np.uint8(100), help=" Threshold for red shades")
 
     args = parser.parse_args()
     if args.video is None:
         source= args.webcam # use webcam
     else:
         source= args.video # use video
+    delay = args.delay
+    cap = args.threshold
 
     captSource = cv.VideoCapture(source)
-    delay = args.delay
     framenum = -1 # Frame counter
     if not captSource.isOpened():
         print("Could not open the video device on channel #" + str(source))
@@ -40,7 +42,6 @@ def main():
 
     # creating lut
     identity = np.arange(256, dtype = np.dtype('uint8'))
-    cap = 220
     identity_capped = np.arange(cap, dtype = np.dtype('uint8'))
     identity_capped = np.pad(identity_capped,(0,256-cap),'constant',constant_values=(0,0))
     zeros = np.zeros(256, np.dtype('uint8'))
